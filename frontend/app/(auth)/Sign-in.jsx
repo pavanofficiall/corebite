@@ -3,6 +3,7 @@ import { View, Text, Pressable, TextInput, Alert } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from '@react-navigation/native';
 // import { signIn } from "../../../backend/services/authService";
+import CustomButton from "../components/Button";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -24,11 +25,11 @@ const LoginScreen = () => {
   
 
   return (
-    <View className="flex-1 bg-black pt-10 px-4">
+    <View className="flex-1 bg-[#232323] pt-10 px-4">
       {/* Top Header Row */}
       <View className="flex-row items-center justify-between mb-6">
         <Pressable onPress={() => navigation.goBack()}>
-          <Ionicons name="chevron-back" size={24} color="#FFFFFF" />
+          <Ionicons name="chevron-back" size={24} color="#ceff00" />
         </Pressable>
         <Text className="text-xl font-bold" style={{ color: "#CEFF00" }}>
           Log In
@@ -64,10 +65,15 @@ const LoginScreen = () => {
           </Pressable>
         </View>
 
-        {/* Log In Button */}
-        <Pressable onPress={handleLogin} className="bg-black border border-white rounded-full py-3 mb-6">
-          <Text className="text-white text-center font-bold">Log In</Text>
-        </Pressable>
+        {/* Continue Button */}
+       <View className="absolute bottom-9 w-full mb-16 ">
+          <Pressable onPress={() => navigation.navigate('(auth)/Sign-in')}>
+            <CustomButton 
+              title="Next" 
+              className="p-4 bg-white/20 border border-[#CEFF00] text-[#CEFF00] font-extrabold rounded-full px-20 mt-9"
+            />
+          </Pressable>
+        </View>
 
         {/* "Or sign up with" Section */}
         <View className="flex-row items-center justify-center mb-4">

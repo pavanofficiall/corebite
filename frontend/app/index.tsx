@@ -8,7 +8,7 @@ export default function IndexScreen() {
 
   useEffect(() => {
     setTimeout(() => {
-      router.replace("/(workout)/Workout"); // Redirect to signup page
+      router.replace("/(tabs)/Home"); 
     }, 3000); // Wait 3 seconds before redirecting
   }, []);
 
