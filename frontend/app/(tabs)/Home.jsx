@@ -37,7 +37,7 @@ const Home = () => {
           <View className="flex-row flex-wrap justify-between">
             <View className='flex-col items-center'>
               <Image
-                source={images.OnboardingImg1}
+                source={images.OnboardingImg3}
                 className="w-44 h-40 rounded-3xl m-3"
               />
              <Text  className="text-white font-semibold text-2xl uppercase ">Chest</Text>
