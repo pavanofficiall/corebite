@@ -7,7 +7,7 @@ const Home = () => {
     <View className="bg-[#232323] h-screen">
       {/* Vertical Scroll */}
       <ScrollView showsVerticalScrollIndicator={false}>
-      <Text className='text-white font-bold text-4xl ml-6 mt-8'>Quick Start</Text>
+      <Text className='text-white text-4xl ml-6 mt-8 font-bold'>Quick Start</Text>
         {/* Horizontal Scroll */}
         <ScrollView 
           horizontal 
