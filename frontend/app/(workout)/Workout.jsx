@@ -3,39 +3,45 @@ import { Button, Pressable, Text, View, Image } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import { useNavigation } from "@react-navigation/native";
 // import FastImage from 'react-native-fast-image';
 
 const Workout = () => {
+  const navigation = useNavigation();
   return (
     <View className="flex-1 justify-end bg-gray-200">
-      <View className="flex-row items-center justify-between mb-6 mx-6 my-4">
-        <Ionicons name="caret-back-outline" size={26} color="black" />
-        <FontAwesome5 name="volume-mute" size={26} color="black" />
+      <View className="flex-row items-center justify-between mx-6 mt-4">
+        <Pressable  onPress={() => navigation.goBack()} >
+        <Ionicons name="chevron-back" size={26} color="#ceff00"  className='bg-black/50 p-1.5 rounded-full'/>
+        </Pressable>
+        <FontAwesome5 name="volume-mute" size={22} color="#ceff00" className='bg-black/50 p-2 rounded-full' />
         {/* <FontAwesome5 name="volume-up" size={26} color="black" /> */}
       </View>
 
-      <View className="mx-6 my-6 bg-white h-2/4 rounded-2xl flex items-center">
-        <View className="h-full">
-          <Image
-            source={require("../../assets/images/workout/push-up.gif")}
-            className="w-[350px] h-[422px] rounded-3xl"
-          />
-        </View>
-        <View className="flex flex-row items-center mt-2 gap-x-72">
-          <AntDesign
-            name="like1"
-            size={20}
-            color="white"
-            className="bg-black/25 p-2 rounded-full"
-          />
-          <AntDesign
-            name="dislike1"
-            size={20}
-            color="white"
-            className="bg-black/25 p-2 rounded-full"
-          />
-        </View>
-      </View>
+      <View className="mx-6 my-6 bg-white h-2/4 rounded-2xl flex items-center relative">
+  <View className="h-full relative">
+    <Image
+      source={require("../../assets/images/workout/push-up.gif")}
+      className="w-[350px] h-[422px] rounded-3xl"
+    />
+    {/* Icons positioned at the bottom of the image */}
+    <View className="absolute bottom-4 left-0 right-0 flex-row justify-center gap-x-64">
+      <AntDesign
+        name="like1"
+        size={20}
+        color="white"
+        className="bg-black/25 p-3 rounded-full"
+      />
+      <AntDesign
+        name="dislike1"
+        size={20}
+        color="white"
+        className="bg-black/25 p-3 rounded-full"
+      />
+    </View>
+  </View>
+</View>
+
 
       <View className="w-full h-96 rounded-3xl flex flex-col justify-start items-center">
         <View className="flex flex-row items-center my-4">

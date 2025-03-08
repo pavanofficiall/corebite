@@ -9,7 +9,7 @@ export default function IndexScreen() {
   useEffect(() => {
     setTimeout(() => {
       router.replace("/(tabs)/Home"); 
-    }, 3000); // Wait 3 seconds before redirecting
+    }, 1000); // Wait 3 seconds before redirecting
   }, []);
 
   return (

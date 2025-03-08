@@ -4,6 +4,7 @@ import images from '../constants/image';
 import { useNavigation } from '@react-navigation/native';
 import { useColorScheme } from 'react-native';
 import { lightTheme, darkTheme } from '../../assets/theme'; // Import themes
+// import Carosel from '../components/Carosel';
 
 const Home = () => {
   const navigation = useNavigation();
@@ -38,6 +39,7 @@ const Home = () => {
             style={{ borderColor: colors.card }}
           />
         </ScrollView>
+        
 
         {/* Rest of the Content */}
         <View className="mb-36 mt-10 mx-6">
@@ -47,7 +49,7 @@ const Home = () => {
 
           <View className="flex-row flex-wrap justify-between">
             {/* Chest */}
-            <Pressable onPress={() => navigation.navigate('(workout)/Workout')}>
+            <Pressable onPress={() => navigation.navigate('(workout)/Exercises')}>
               <View className="flex-col items-center">
                 <Image source={images.OnboardingImg3} className="w-44 h-40 rounded-3xl m-3" />
                 <Text className={`${colors.text} font-semibold text-2xl uppercase`}>Chest</Text>
