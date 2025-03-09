@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Pressable, Text, View, Image } from "react-native";
+import { Pressable, Text, View, Image } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
@@ -67,7 +67,9 @@ const Workout = () => {
           </Pressable>
 
           {/* Next Button */}
-          <Pressable className="flex flex-row items-center mb-2 py-4 px-14">
+          <Pressable className="flex flex-row items-center mb-2 py-4 px-14" 
+          onPress={() => navigation.navigate('(workout)/Switch')}
+          >
             <Text className="text-xl text-gray-500 uppercase px-1 font-semibold">
               Next
             </Text>

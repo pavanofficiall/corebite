@@ -1,1 +1,6 @@
 rnfe for default native structure
+
+tasks to do :-
+1. switching page 
+2. loging food search page
+3. food description

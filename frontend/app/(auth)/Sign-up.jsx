@@ -7,12 +7,12 @@ const SignUpScreen = () => {
   const navigation = useNavigation(); // Get the navigation object
 
   return (
-    <View className="flex-1 bg-black pt-10 px-4">
+    <View className="flex-1 bg-[#232323] pt-10 px-4">
       {/* Top Header Row */}
       <View className="flex-row items-center justify-between mb-6">
         {/* Back Arrow */}
         <Pressable onPress={() => navigation.goBack()}>
-          <Ionicons name="chevron-back" size={24} color="#FFFFFF" />
+          <Ionicons name="chevron-back" size={24} color="#ceff00" />
         </Pressable>
 
         {/* "Sign Up" Title in neon color */}

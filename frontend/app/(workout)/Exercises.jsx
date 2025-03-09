@@ -4,8 +4,6 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from '@react-navigation/native';
 import image from "../constants/image";
 import CustomButton from "../components/Button";
-import { BlurView } from 'expo-blur';
-
 
 function Exercises() {
     const navigation = useNavigation();
