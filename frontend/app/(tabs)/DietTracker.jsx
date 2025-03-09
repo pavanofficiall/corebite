@@ -1,9 +1,10 @@
-import { View, Text, Image, ScrollView, TouchableOpacity, useColorScheme } from 'react-native';
+import { View, Text, Image, ScrollView, TouchableOpacity, useColorScheme, Pressable } from 'react-native';
 import React from 'react';
 import images from '../constants/image';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { lightTheme, darkTheme } from '../../assets/theme'; // Import themes
+import { useNavigation } from '@react-navigation/native';
 
 const ProgressBar = ({ sections }) => {
   return (
@@ -25,6 +26,7 @@ const ProgressBar = ({ sections }) => {
 };
 
 const DietTracker = () => {
+  const navigation = useNavigation();
   const theme = useColorScheme(); // Detect system theme
   const colors = theme === 'dark' ? darkTheme : lightTheme; // Apply theme
 
@@ -88,7 +90,7 @@ const DietTracker = () => {
       </ScrollView>
 
       {/* Floating Button */}
-      <TouchableOpacity className="absolute bottom-9 right-5 bg-[#ceff00] p-3 rounded-full shadow-lg">
+      <TouchableOpacity onPress={() => (navigation.navigate('(logFood)/LogFood'))} className="absolute bottom-9 right-5 bg-[#ceff00] p-3 rounded-full shadow-lg">
         <Ionicons name="add" size={30} color="#232323" />
       </TouchableOpacity>
     </View>

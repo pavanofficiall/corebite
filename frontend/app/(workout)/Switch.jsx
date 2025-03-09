@@ -41,13 +41,29 @@ function Switch() {
   return (
     <View className="bg-[#232323] h-screen">
       <View className="overflow-hidden">
+        <View className="flex flex-row items-center">
       <Pressable 
     onPress={() => navigation.goBack()} 
-    className="absolute top-4 left-4 bg-black/50 p-2 rounded-full z-10"
+    className="absolute top-4 left-4 bg-[#232323]/50 p-2 rounded-full z-20"
   >
     <Ionicons name="chevron-back" size={24} color="#ceff00" />
   </Pressable>
-
+  
+<LinearGradient
+  colors={["transparent", "#3a3a3a"]}
+  start={{ x: 0.5, y: 0 }}
+  end={{ x: 0, y: 0.8 }}
+  className="z-10 flex justify-end py-2 space-y-8 absolute top-0 w-full left-16 mt-2"
+  style={{
+    borderTopLeftRadius: 9999, // Equivalent to rounded-l-full
+    borderBottomLeftRadius: 9999, // Equivalent to rounded-l-full
+  }}
+>
+  <View className="flex flex-row items-center justify-between mx-6">
+    <Text className="text-[#ceff00] text-4xl font-bold capitalize">NEXT</Text>
+  </View>
+</LinearGradient>
+        </View>
         <Image source={images.img1} className="w-full h-96 rounded-b-2xl" />
         <LinearGradient
           colors={["transparent", "#3a3a3a"]}
