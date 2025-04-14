@@ -10,64 +10,62 @@ function LogFood() {
 
   // Dummy food data
   const popularFoods = [
-    { name: "Egg", calories: "143 cal", protein: "12.4g Protein" },
-    { name: "Chicken Breast", calories: "165 cal", protein: "31g Protein" },
-    { name: "Oats", calories: "389 cal", protein: "16.9g Protein" },
-    { name: "Banana", calories: "105 cal", protein: "1.3g Protein" },
-    { name: "Salmon", calories: "208 cal", protein: "20g Protein" },
-    { name: "Apple", calories: "95 cal", protein: "0.5g Protein" },
-    { name: "Greek Yogurt", calories: "100 cal", protein: "10g Protein" },
-    { name: "Almonds", calories: "164 cal", protein: "6g Protein" },
-    { name: "Sweet Potato", calories: "103 cal", protein: "2.3g Protein" },
-    { name: "Tofu", calories: "144 cal", protein: "15g Protein" },
-    { name: "Broccoli", calories: "55 cal", protein: "4.3g Protein" },
-    { name: "Brown Rice", calories: "216 cal", protein: "5g Protein" },
-    { name: "Avocado", calories: "160 cal", protein: "2g Protein" },
-    { name: "Tuna", calories: "179 cal", protein: "39g Protein" },
-    { name: "Cottage Cheese", calories: "98 cal", protein: "11g Protein" },
-    { name: "Peanut Butter", calories: "188 cal", protein: "8g Protein" },
-    { name: "Spinach", calories: "23 cal", protein: "2.9g Protein" },
-    { name: "Carrot", calories: "41 cal", protein: "0.9g Protein" },
-    { name: "Quinoa", calories: "222 cal", protein: "8g Protein" },
-    { name: "Shrimp", calories: "99 cal", protein: "24g Protein" },
-    { name: "Lentils", calories: "230 cal", protein: "18g Protein" },
-    { name: "Mushrooms", calories: "22 cal", protein: "3g Protein" },
-    { name: "Turkey Breast", calories: "135 cal", protein: "29g Protein" },
-    { name: "Blueberries", calories: "57 cal", protein: "0.7g Protein" },
-    { name: "Beef Steak", calories: "271 cal", protein: "26g Protein" },
-      { name: "Pasta", calories: "221 cal", protein: "8g Protein" },
-      { name: "Cheese", calories: "402 cal", protein: "25g Protein" },
-      { name: "Bread", calories: "265 cal", protein: "9g Protein" },
-      { name: "Rice", calories: "130 cal", protein: "2.7g Protein" },
-      { name: "Potato", calories: "77 cal", protein: "2g Protein" },
-      { name: "Butter", calories: "717 cal", protein: "0.9g Protein" },
-      { name: "Milk", calories: "103 cal", protein: "8g Protein" },
-      { name: "Cucumber", calories: "16 cal", protein: "0.7g Protein" },
-      { name: "Bell Pepper", calories: "31 cal", protein: "1g Protein" },
-      { name: "Cauliflower", calories: "25 cal", protein: "2g Protein" },
-      { name: "Pineapple", calories: "50 cal", protein: "0.5g Protein" },
-      { name: "Orange", calories: "62 cal", protein: "1.2g Protein" },
-      { name: "Strawberries", calories: "32 cal", protein: "0.7g Protein" },
-      { name: "Watermelon", calories: "30 cal", protein: "0.6g Protein" },
-      { name: "Pomegranate", calories: "83 cal", protein: "1.7g Protein" },
-      { name: "Kiwi", calories: "61 cal", protein: "1.1g Protein" },
-      { name: "Chickpeas", calories: "164 cal", protein: "9g Protein" },
-      { name: "Black Beans", calories: "132 cal", protein: "8.9g Protein" },
-      { name: "Lamb", calories: "294 cal", protein: "25g Protein" },
-      { name: "Pork Chop", calories: "231 cal", protein: "23g Protein" },
-      { name: "Duck", calories: "337 cal", protein: "27g Protein" },
-      { name: "Cod", calories: "82 cal", protein: "18g Protein" },
-      { name: "Sardines", calories: "208 cal", protein: "25g Protein" },
-      { name: "Octopus", calories: "164 cal", protein: "29g Protein" },
-      { name: "Dark Chocolate", calories: "546 cal", protein: "4.9g Protein" },
-      { name: "Peas", calories: "81 cal", protein: "5g Protein" },
-      { name: "Zucchini", calories: "17 cal", protein: "1.2g Protein" },
-      { name: "Radish", calories: "16 cal", protein: "0.7g Protein" },
-      { name: "Chia Seeds", calories: "486 cal", protein: "17g Protein" },
-      { name: "Cashews", calories: "553 cal", protein: "18g Protein" }
-    
+    { name: "Egg", calories: "143 ", protein: "12.4" },
+    { name: "Chicken Breast", calories: "165 ", protein: "31" },
+    { name: "Oats", calories: "389 ", protein: "16.9" },
+    { name: "Banana", calories: "105 ", protein: "1.3" },
+    { name: "Salmon", calories: "208 ", protein: "20" },
+    { name: "Apple", calories: "95 ", protein: "0.5" },
+    { name: "Greek Yogurt", calories: "100 ", protein: "10" },
+    { name: "Almonds", calories: "164 ", protein: "6" },
+    { name: "Sweet Potato", calories: "103 ", protein: "2.3" },
+    { name: "Tofu", calories: "144 ", protein: "15" },
+    { name: "Broccoli", calories: "55 ", protein: "4.3" },
+    { name: "Brown Rice", calories: "216 ", protein: "5" },
+    { name: "Avocado", calories: "160 ", protein: "2" },
+    { name: "Tuna", calories: "179 ", protein: "39" },
+    { name: "Cottage Cheese", calories: "98 ", protein: "11" },
+    { name: "Peanut Butter", calories: "188 ", protein: "8" },
+    { name: "Spinach", calories: "23 ", protein: "2.9" },
+    { name: "Carrot", calories: "41 ", protein: "0.9" },
+    { name: "Quinoa", calories: "222 ", protein: "8" },
+    { name: "Shrimp", calories: "99 ", protein: "24" },
+    { name: "Lentils", calories: "230 ", protein: "18" },
+    { name: "Mushrooms", calories: "22 ", protein: "3" },
+    { name: "Turkey Breast", calories: "135 ", protein: "29" },
+    { name: "Blueberries", calories: "57 ", protein: "0.7" },
+    { name: "Beef Steak", calories: "271 ", protein: "26" },
+    { name: "Pasta", calories: "221 ", protein: "8" },
+    { name: "Cheese", calories: "402 ", protein: "25" },
+    { name: "Bread", calories: "265 ", protein: "9" },
+    { name: "Rice", calories: "130 ", protein: "2.7" },
+    { name: "Potato", calories: "77 ", protein: "2" },
+    { name: "Butter", calories: "717 ", protein: "0.9" },
+    { name: "Milk", calories: "103 ", protein: "8" },
+    { name: "Cucumber", calories: "16 ", protein: "0.7" },
+    { name: "Bell Pepper", calories: "31 ", protein: "1" },
+    { name: "Cauliflower", calories: "25 ", protein: "2" },
+    { name: "Pineapple", calories: "50 ", protein: "0.5" },
+    { name: "Orange", calories: "62 ", protein: "1.2" },
+    { name: "Strawberries", calories: "32 ", protein: "0.7" },
+    { name: "Watermelon", calories: "30 ", protein: "0.6" },
+    { name: "Pomegranate", calories: "83 ", protein: "1.7" },
+    { name: "Kiwi", calories: "61 ", protein: "1.1" },
+    { name: "Chickpeas", calories: "164 ", protein: "9" },
+    { name: "Black Beans", calories: "132 ", protein: "8.9" },
+    { name: "Lamb", calories: "294 ", protein: "25" },
+    { name: "Pork Chop", calories: "231 ", protein: "23" },
+    { name: "Duck", calories: "337 ", protein: "27" },
+    { name: "Cod", calories: "82 ", protein: "18" },
+    { name: "Sardines", calories: "208 ", protein: "25" },
+    { name: "Octopus", calories: "164 ", protein: "29" },
+    { name: "Dark Chocolate", calories: "546 ", protein: "4.9" },
+    { name: "Peas", calories: "81 ", protein: "5" },
+    { name: "Zucchini", calories: "17 ", protein: "1.2" },
+    { name: "Radish", calories: "16 ", protein: "0.7" },
+    { name: "Chia Seeds", calories: "486 ", protein: "17" },
+    { name: "Cashews", calories: "553 ", protein: "18" },
   ];
-  
 
   // Filter food based on search input
   const filteredFoods = popularFoods.filter((food) =>
@@ -109,30 +107,34 @@ function LogFood() {
           {filteredFoods.length > 0 ? (
             filteredFoods.map((food, index) => (
               <View
-              key={index}
-              className="bg-[#3a3a3a] px-5 py-4 rounded-lg flex-row justify-between items-center mb-3"
-            >
-              <View className=''>
-                <Text className="text-white font-bold">{food.name}</Text>
-                <Text className="text-white font-thin">
-                  {food.calories}, {food.protein}
-                </Text>
+                key={index}
+                className="bg-[#3a3a3a] px-5 py-4 rounded-lg flex-row justify-between items-center mb-3"
+              >
+                <View className="">
+                  <Text className="text-white font-bold">{food.name}</Text>
+                  <Text className="text-white font-thin">
+                    {food.calories}, {food.protein}
+                  </Text>
+                </View>
+                <Pressable
+                  onPress={() => navigation.navigate("(logFood)/FoodInfo")}
+                >
+                  <Ionicons
+                    name="add"
+                    size={25}
+                    color="#232323"
+                    className="bg-[#ceff00] rounded-full p-2"
+                  />
+                </Pressable>
               </View>
-              <Pressable  onPress={() => navigation.navigate('(logFood)/FoodInfo')}>
-                <Ionicons
-                  name="add"
-                  size={25}
-                  color="#232323"
-                  className="bg-[#ceff00] rounded-full p-2"
-                />
-              </Pressable>
-            </View>
             ))
           ) : (
-            <View className='flex flex-row justify-between'>
+            <View className="flex flex-row justify-between">
               <Text className="text-white px-4 py-2">No food found?</Text>
               <Pressable>
-              <Text className=" text-lg text-blue-600 font-semibold px-4 py-2">report</Text>
+                <Text className=" text-lg text-blue-600 font-semibold px-4 py-2">
+                  report
+                </Text>
               </Pressable>
             </View>
           )}
@@ -157,7 +159,12 @@ function LogFood() {
                   {food.calories}, {food.protein}
                 </Text>
               </View>
-              <Pressable onPress={() => navigation.navigate('(logFood)/FoodInfo')}>
+
+              <Pressable
+                onPress={() =>
+                  navigation.navigate("(logFood)/FoodInfo", { food })
+                }
+              >
                 <Ionicons
                   name="add"
                   size={25}

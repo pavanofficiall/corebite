@@ -6,7 +6,24 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { lightTheme, darkTheme } from '../../assets/theme'; // Import themes
 import { useNavigation } from '@react-navigation/native';
 
-const ProgressBar = ({ sections }) => {
+const ProgressBar = ({ sections,foodLogs }) => {
+  console.log(Array.isArray(foodLogs)); // Should return true
+
+  // return foodLogs.reduce((total, item) => total + parseInt(item.calories), 0);
+};
+
+const Analytics = () => {
+  const [foodLogs, setFoodLogs] = useState([]);
+
+  useEffect(() => {
+    const fetchFoodLogs = async () => {
+      const logs = await AsyncStorage.getItem("foodLogs");
+      if (logs) setFoodLogs(JSON.parse(logs));
+    };
+
+    fetchFoodLogs();
+  }, []);
+
   return (
     <View className="w-full h-6 rounded-full overflow-hidden border border-white">
       <View className="flex-row w-full h-full">

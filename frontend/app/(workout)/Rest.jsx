@@ -14,6 +14,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 function Rest() {
   const navigation = useNavigation();
   const route = useRoute();
+
   // Get nextIndex and the full exercise list from params
   const { nextIndex, exercises } = route.params;
   const nextExercise = exercises[nextIndex];
@@ -59,6 +60,12 @@ function Rest() {
     setMinutes(Math.floor(totalSeconds / 60));
     setSeconds(totalSeconds % 60);
   };
+
+  if (!nextExercise) {
+    navigation.navigate("(workout)/Finished");
+    return null;
+  }
+  
 
   return (
     <View className="bg-[#232323] h-screen">

@@ -1,10 +1,12 @@
-import { View, Text, ScrollView, Image, Pressable } from 'react-native';
+import { View, Text, ScrollView, Image, Pressable, TouchableOpacity } from 'react-native';
 import React from 'react';
 import images from '../constants/image';
 import { useNavigation } from '@react-navigation/native';
 import { useColorScheme } from 'react-native';
 import { lightTheme, darkTheme } from '../../assets/theme'; // Import themes
 // import Carosel from '../components/Carosel';
+import Ionicons from '@expo/vector-icons/Ionicons';
+
 
 const Home = () => {
   const navigation = useNavigation();
@@ -82,6 +84,11 @@ const Home = () => {
           </View>
         </View>
       </ScrollView>
+
+      {/* Floating Button */}
+      <TouchableOpacity onPress={() => (navigation.navigate('(logFood)/LogFood'))} className="absolute bottom-[138px] right-5 bg-[#ceff00] p-3 rounded-full shadow-lg">
+        <Ionicons name="add" size={30} color="#232323" />
+      </TouchableOpacity>
     </View>
   );
 };

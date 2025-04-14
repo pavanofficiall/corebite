@@ -7,7 +7,7 @@ import CustomButton from "../components/Button";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 function Exercises() {
-  const navigation = useNavigation();
+  const navigation = useNavigation(); //use for navigation between pages
 
   // Centralized data for chest exercises
   const chestExercises = [

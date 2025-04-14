@@ -14,17 +14,18 @@ function Workout() {
 
   // Function to handle Next:
   const handleNext = () => {
-    if (exerciseIndex + 1 <= exercises.length) {
-      // Navigate to Rest screen with the next exercise index
+    if (exerciseIndex + 1 < exercises.length) {
+      // Go to Rest screen with the next exercise index
       navigation.navigate("(workout)/Rest", {
         nextIndex: exerciseIndex + 1,
         exercises,
       });
     } else {
-      // If it's the last exercise, maybe navigate to a finish screen
+      // Last exercise -> navigate to a finished screen
       navigation.navigate("(workout)/Finished");
     }
   };
+  
 
   return (
     <View className="flex-1 bg-[#232323] justify-end">
@@ -33,7 +34,6 @@ function Workout() {
         <Pressable onPress={() => navigation.goBack()}>
           <Ionicons name="chevron-back" size={26} color="#ceff00" className="bg-black/50 p-1.5 rounded-full" />
         </Pressable>
-        {/* (Additional controls if needed) */}
       </View>
 
       {/* Workout Content */}
