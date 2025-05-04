@@ -4,6 +4,7 @@ import { Tabs } from 'expo-router';
 import { createStackNavigator } from '@react-navigation/stack';
 import Octicons from '@expo/vector-icons/Octicons';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 const Stack = createStackNavigator();
 
@@ -13,13 +14,11 @@ const TabsLayout = () => {
       <Tabs
         screenOptions={{
           tabBarShowLabel: false,
-          tabBarActiveTintColor: '#ceff00',
+          tabBarActiveTintColor: '#fff',
           tabBarInactiveTintColor: '#cdcde0',
           tabBarStyle: {
-            backgroundColor: "#232323",
-            borderTopWidth: 1,
-            borderColor: '#ceff00',
-            height: 60
+            backgroundColor: "#10B981",
+            height: 48
           }
         }}
       >
@@ -28,7 +27,7 @@ const TabsLayout = () => {
           options={{
             headerShown: false,
             tabBarIcon: ({ color }) => (
-              <Octicons name="home" size={29} color={color} />
+              <Ionicons name="home-outline" size={29} color={color} />
             )
           }}
         />
@@ -37,7 +36,7 @@ const TabsLayout = () => {
           options={{
             headerShown: false,
             tabBarIcon: ({ color }) => (
-              <Ionicons name="stats-chart-outline" size={29} color={color} />
+              <Ionicons name="analytics-sharp" size={29} color={color} />
             )
           }}
         />
@@ -58,14 +57,14 @@ const TabsLayout = () => {
 // Custom Navbar Component
 const CustomNavbar = ({ navigation }) => {
   return (
-    <View className="flex-row items-center justify-between px-4 py-1  bg-[#232323] ">
+    <View className="flex-row items-center justify-between px-4 py-1  bg-[#10B981] ">
 
       {/* Center Title */}
-      <Text className="text-[#ceff00] text-xl font-bold ">CoreBite</Text>
+      <Text className="text-[#fff] text-3xl font-bold ">CoreBite</Text>
 
       {/* Right Icon (Profile) */}
       <TouchableOpacity >
-        <Ionicons name="person-circle-outline" size={38} color="#ceff00" />
+        <Ionicons name="person-circle-outline" size={38} color="#fff" />
       </TouchableOpacity>
     </View>
   );

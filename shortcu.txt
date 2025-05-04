@@ -4,3 +4,306 @@ tasks to do :-
 1. switching page 
 2. loging food search page
 3. food description
+
+theme colors
+bg-#10B981
+
+// // Exercises.jsx
+// import React from "react";
+// import { View, Text, Image, ScrollView, Pressable } from "react-native";
+// import { useNavigation } from "@react-navigation/native";
+// import image from "../constants/image";
+// import CustomButton from "../components/Button";
+// import Ionicons from "@expo/vector-icons/Ionicons";
+
+// function Exercises() {
+//   const navigation = useNavigation();
+
+//   const chestExercises = [
+//     { id: 1, name: "Push-ups", reps: "12 reps", image: image.OnboardingImg3 },
+//     { id: 2, name: "Incline Push-ups", reps: "15 reps", image: image.arm },
+//     { id: 3, name: "Decline Push-ups", reps: "10 reps", image: image.OnboardingImg2 },
+//     { id: 4, name: "Diamond Push-ups", reps: "12 reps", image: image.OnboardingImg1 },
+//     { id: 5, name: "Wide Push-ups", reps: "15 reps", image: image.back },
+//     { id: 6, name: "Wide Push-ups22", reps: "15 reps", image: image.back },
+//     { id: 7, name: "Wide Push-ups333", reps: "15 reps", image: image.back },
+//     { id: 8, name: "Wide Push-ups444", reps: "15 reps", image: image.back },
+//     { id: 9, name: "Wide Push-ups55", reps: "15 reps", image: image.back },
+//   ];
+// console.log(chestExercises)
+//   return (
+//     <View className="bg-[#232323] h-screen">
+//       {/* Header and Top Image */}
+
+//       <View className="relative">
+//         <Image source={image.OnboardingImg1} className="w-full h-64 rounded-b-xl" />
+//         <Pressable onPress={() => navigation.goBack()} className="absolute top-4 left-4 rounded-full">
+//           {/* Back Icon */}
+//           <Ionicons name="chevron-back" size={26} color="#ceff00" className="bg-black/50 p-1.5 rounded-full" />
+//         </Pressable>
+//       </View>
+
+//       {/* Exercise Info */}
+//       <ScrollView className="mx-6" showsVerticalScrollIndicator={false}>
+//         <View className="flex flex-row items-center justify-between my-4">
+//           <Text className="text-white font-semibold text-2xl capitalize">Chest Workout (Beginner)</Text>
+//           <Text className="font-semibold text-xl text-[#ceff00]">8 min</Text>
+//         </View>
+//         <View className="mb-32">
+//           <Text className="text-white font-semibold text-3xl my-4">Exercises</Text>
+//           {chestExercises.map((exercise) => (
+//             <View key={exercise.id} className="flex flex-row items-start gap-3 bg-[#3a3a3a] p-4 rounded-3xl mb-3">
+//               <Image source={exercise.image} className="w-28 h-20" />
+//               <View className="flex gap-2">
+//                 <Text className="text-white font-semibold text-2xl capitalize">{exercise.name}</Text>
+//                 <Text className="font-extralight text-slate-200">{exercise.reps}</Text>
+//               </View>
+//             </View>
+//           ))}
+//         </View>
+//       </ScrollView>
+
+//       {/* Start Button - Navigates to Workout with index 0 */}
+//       <Pressable
+//         onPress={() =>
+//           navigation.navigate("(workout)/Workout", {
+//             exerciseIndex: 0,
+//             exercises: chestExercises,
+//           })
+//         }
+//         className="absolute bottom-10 left-[50px] right-[50px] items-center"
+//       >
+//         <CustomButton
+//           title="Start"
+//           className="p-4 bg-[#ceff00] border-2 border-[#fff] text-[#232323] font-extrabold rounded-full px-32"
+//         />
+//       </Pressable>
+//     </View>
+//   );
+// }
+
+// export default Exercises;
+
+
+
+
+
+
+
+
+
+// // Workout.jsx
+// import React from "react";
+// import { View, Text, Image, Pressable } from "react-native";
+// import { useNavigation, useRoute } from "@react-navigation/native";
+// import Ionicons from "@expo/vector-icons/Ionicons";
+// import CustomButton from "../components/Button";
+
+// function Workout() {
+//   const navigation = useNavigation();
+//   const route = useRoute();
+//   // Get current exercise index and list from route params
+//   const { exerciseIndex, exercises } = route.params;
+//   const currentExercise = exercises[exerciseIndex];
+  
+//   // Function to handle Next:
+//   const handleNext = () => {
+//     if (exerciseIndex + 1 < exercises.length) {
+//       // Go to Rest screen with the next exercise index
+//       navigation.navigate("(workout)/Rest", {
+//         nextIndex: exerciseIndex + 1,
+//         exercises,
+//       });
+//     } else {
+//       // Last exercise -> navigate to a finished screen
+//       navigation.navigate("(workout)/Finished");
+//     }
+//   };
+  
+
+//   return (
+//     <View className="flex-1 bg-[#232323] justify-end">
+//       {/* Top Controls */}
+//       <View className="flex-row items-center justify-between mx-6 mt-4">
+//         <Pressable onPress={() => navigation.goBack()}>
+//           <Ionicons name="chevron-back" size={26} color="#ceff00" className="bg-black/50 p-1.5 rounded-full" />
+//         </Pressable>
+//       </View>
+
+//       {/* Workout Content */}
+//       <View className="mx-6 my-6 bg-white h-2/4 rounded-2xl flex items-center relative">
+//         <Image source={currentExercise.image} className="w-[350px] h-[422px] rounded-3xl" />
+//         {/* Example overlay icons */}
+//         <View className="absolute bottom-4 left-0 right-0 flex-row justify-center gap-x-64">
+//           {/* Like / Dislike icons */}
+//           <Ionicons name="heart" size={20} color="white" className="bg-black/25 p-3 rounded-full" />
+//           <Ionicons name="heart-dislike" size={20} color="white" className="bg-black/25 p-3 rounded-full" />
+//         </View>
+//       </View>
+
+//       {/* Workout Details and Next Button */}
+//       <View className="w-full h-96 rounded-3xl flex flex-col justify-start items-center">
+//         <View className="flex flex-row items-center my-4">
+//           <Text className="text-4xl font-semibold px-1 py-3 uppercase text-white">
+//             {currentExercise.name}
+//           </Text>
+//         </View>
+//         <Text className="font-bold text-6xl my-8 text-white">{currentExercise.reps}</Text>
+//         <Pressable onPress={handleNext} className="mb-4">
+//           <CustomButton title="Next" className="text-3xl text-[#ceff00] border border-[#ceff00] px-28 py-3 rounded-full" />
+//         </Pressable>
+//       </View>
+//     </View>
+//   );
+// }
+
+// export default Workout;
+
+
+
+
+// // Rest.jsx
+// import React, { useState, useEffect, useCallback } from "react";
+// import { Text, View, Image, Pressable } from "react-native";
+// import CustomButton from "../components/Button";
+// import { LinearGradient } from "expo-linear-gradient";
+// import {
+//   useNavigation,
+//   useRoute,
+//   useFocusEffect,
+// } from "@react-navigation/native";
+// import { MotiText } from "moti";
+// import Ionicons from "@expo/vector-icons/Ionicons";
+
+// function Rest() {
+//   const navigation = useNavigation();
+//   const route = useRoute();
+//   console.log(route.params);
+//   console.log("exercises",route.params.exercises);
+//   console.log("exerciseIndex",route.params.exerciseIndex);
+
+//   // Get nextIndex and the full exercise list from params
+//   const { nextIndex, exercises } = route.params;
+//   const nextExercise = exercises[nextIndex];
+
+//   const [minutes, setMinutes] = useState(0);
+//   const [seconds, setSeconds] = useState(30); // Rest timer starts at 0:30
+//   const [isActive, setIsActive] = useState(false);
+
+//   // Start timer when the screen is focused
+//   useFocusEffect(
+//     useCallback(() => {
+//       setIsActive(true);
+//       return () => setIsActive(false);
+//     }, [])
+//   );
+
+//   useEffect(() => {
+//     if (!isActive) return;
+//     if (minutes === 0 && seconds === 0) {
+//       // Timer finished: navigate to next workout
+//       navigation.navigate("(workout)/Workout", {
+//         exerciseIndex: nextIndex,
+//         exercises,
+//       });
+//       return;
+//     }
+//     const timer = setInterval(() => {
+//       if (seconds === 0) {
+//         if (minutes > 0) {
+//           setMinutes((prev) => prev - 1);
+//           setSeconds(59);
+//         }
+//       } else {
+//         setSeconds((prev) => prev - 1);
+//       }
+//     }, 1000);
+
+//     return () => clearInterval(timer);
+//   }, [minutes, seconds, isActive, navigation, nextIndex, exercises]);
+
+//   const addTime = () => {
+//     let totalSeconds = minutes * 60 + seconds + 20;
+//     setMinutes(Math.floor(totalSeconds / 60));
+//     setSeconds(totalSeconds % 60);
+//   };
+
+//   if (!nextExercise) {
+//     navigation.navigate("(workout)/Finished");
+//     return null;
+//   }
+  
+
+//   return (
+//     <View className="bg-[#232323] h-screen">
+//       <View className="overflow-hidden relative">
+//         <Pressable
+//           onPress={() => navigation.goBack()}
+//           className="absolute top-4 left-4 bg-[#232323]/50 p-2 rounded-full z-20"
+//         >
+//           <Ionicons name="chevron-back" size={24} color="#ceff00" />
+//         </Pressable>
+//         <Image
+//           source={nextExercise.image}
+//           className="w-full h-96 rounded-b-2xl"
+//         />
+//         <LinearGradient
+//           colors={["transparent", "#232323"]}
+//           start={{ x: 0.5, y: 0 }}
+//           end={{ x: 0.5, y: 0.8 }}
+//           className="flex justify-end pb-12 space-y-8 absolute bottom-0 w-full h-1/3 rounded-b-2xl"
+//         >
+//           <View className="flex flex-row items-center justify-between mx-6">
+//             <Text className="text-[#ceff00] text-4xl font-bold capitalize">
+//               {nextExercise.name}
+//             </Text>
+//             <Text className="text-[#ceff00] text-5xl font-extrabold">
+//               {nextExercise.reps}
+//             </Text>
+//           </View>
+//         </LinearGradient>
+//       </View>
+
+//       <View className="mx-6 flex flex-col items-center justify-center mt-5">
+//         <Text className="text-[#ceff00] text-3xl font-semibold">Take Rest</Text>
+
+//         {/* Animated Timer Display */}
+//         <View className="mt-40 gap-2 justify-center flex flex-col items-center border bg-[#3a3a3a] border-[#ceff00] rounded-3xl p-5 pb-2">
+//           <MotiText
+//             from={{ opacity: 0, translateY: -10 }}
+//             animate={{ opacity: 1, translateY: 0 }}
+//             transition={{ type: "timing", duration: 500 }}
+//             key={`${minutes}:${seconds}`}
+//             className="text-[#ceff00] text-6xl font-light"
+//           >
+//             {`${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`}
+//           </MotiText>
+//         </View>
+
+//         <View className="flex flex-row items-center justify-between gap-8 mt-[128px]">
+//           <Pressable onPress={addTime}>
+//             <CustomButton
+//               title={"+20s"}
+//               className="text-[#232323] text-3xl bg-[#ceff00] px-[59px] py-4 rounded-full"
+//             />
+//           </Pressable>
+//           <Pressable
+//             onPress={() =>
+//               navigation.navigate("(workout)/Workout", {
+//                 exerciseIndex: nextIndex,
+//                 exercises,
+//               })
+//             }
+//           >
+//             <CustomButton
+//               title={"Skip"}
+//               className="text-[#ceff00] border border-[#ceff00] px-[59px] py-4 rounded-full"
+//             />
+//           </Pressable>
+//         </View>
+//       </View>
+//     </View>
+//   );
+// }
+
+// export default Rest;

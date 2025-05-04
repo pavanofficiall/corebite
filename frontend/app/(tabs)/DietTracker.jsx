@@ -107,8 +107,8 @@ const DietTracker = () => {
       </ScrollView>
 
       {/* Floating Button */}
-      <TouchableOpacity onPress={() => (navigation.navigate('(logFood)/LogFood'))} className="absolute bottom-9 right-5 bg-[#ceff00] p-3 rounded-full shadow-lg">
-        <Ionicons name="add" size={30} color="#232323" />
+      <TouchableOpacity onPress={() => (navigation.navigate('(logFood)/LogFood'))} className="absolute bottom-[44px] right-5 bg-[#10B981] p-3 rounded-full shadow-lg">
+        <Ionicons name="add" size={30} color="#fff" />
       </TouchableOpacity>
     </View>
   );

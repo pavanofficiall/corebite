@@ -13,8 +13,8 @@ export default function IndexScreen() {
   }, []);
 
   return (
-    <View className="flex-1 h-screen justify-center items-center bg-green-500">
-      <ActivityIndicator size="large" color="#3498db" />
+    <View className="flex-1 h-screen justify-center items-center bg-emerald-500">
+      <ActivityIndicator size="large" color="#fff" />
       <Text className="pt-4 text-white text-5xl font-extrabold">COREBITE</Text>
     </View>
   );

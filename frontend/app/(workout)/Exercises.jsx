@@ -1,72 +1,136 @@
-// Exercises.jsx
-import React from "react";
-import { View, Text, Image, ScrollView, Pressable } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import image from "../constants/image";
-import CustomButton from "../components/Button";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import React from 'react';
+import { View, Text, TouchableOpacity, Image, ScrollView, useColorScheme } from 'react-native';
+import { router } from 'expo-router';
+import { MaterialIcons, Ionicons } from '@expo/vector-icons';
 
-function Exercises() {
-  const navigation = useNavigation(); //use for navigation between pages
+const workoutInfo = {
+  title: "Full Body Workout",
+  description: "Complete workout to build strength and endurance",
+  duration: "25 min",
+  difficulty: "Intermediate",
+  calories: 250,
+};
 
-  // Centralized data for chest exercises
-  const chestExercises = [
-    { id: 1, name: "Push-ups", reps: "12 reps", image: image.OnboardingImg3 },
-    { id: 2, name: "Incline Push-ups", reps: "15 reps", image: image.arm },
-    { id: 3, name: "Decline Push-ups", reps: "10 reps", image: image.OnboardingImg2 },
-    { id: 4, name: "Diamond Push-ups", reps: "12 reps", image: image.OnboardingImg1 },
-    { id: 5, name: "Wide Push-ups", reps: "15 reps", image: image.back }
-    // ... add more as needed
-  ];
+const exerciseList = [
+  { name: "Push Ups" },
+  { name: "Squats" },
+  { name: "Burpees" },
+  { name: "Plank" },
+  { name: "Jumping Jacks" },
+];
 
+const Exercise = () => {
+  const colorScheme = useColorScheme();
   return (
-    <View className="bg-[#232323] h-screen">
-      {/* Header and Top Image */}
-      <View className="relative">
-        <Image source={image.OnboardingImg1} className="w-full h-64 rounded-b-xl" />
-        <Pressable onPress={() => navigation.goBack()} className="absolute top-4 left-4 rounded-full">
-          {/* Back Icon */}
-          <Ionicons name="chevron-back" size={26} color="#ceff00" className="bg-black/50 p-1.5 rounded-full" />
-        </Pressable>
+    <View className={`flex-1 ${colorScheme === 'dark' ? 'dark bg-[#232323]' : 'bg-white'}`}>
+      {/* Header */}
+      <View className="px-6 py-6 pb-4 bg-[#10B981]">
+        <View className="flex-row items-center justify-between">
+          <TouchableOpacity onPress={() => router.back()}>
+            <Ionicons name="chevron-back" size={26} color="#fff" />
+          </TouchableOpacity>
+          <Text className="text-[#fff] font-medium text-xl flex-1 ml-4 capitalize">
+            workout plan
+          </Text>
+          <Ionicons name="bookmark-outline" size={24} color="#fff" />
+        </View>
       </View>
 
-      {/* Exercise Info */}
-      <ScrollView className="mx-6" showsVerticalScrollIndicator={false}>
-        <View className="flex flex-row items-center justify-between my-4">
-          <Text className="text-white font-semibold text-2xl capitalize">Chest Workout (Beginner)</Text>
-          <Text className="font-semibold text-xl text-[#ceff00]">8 min</Text>
+      <ScrollView className="flex-1">
+        {/* Workout Banner */}
+        <View className="relative h-48 w-full mb-6">
+          <Image
+            source={{ uri: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1000" }}
+            className="w-full h-full"
+            style={{ opacity: 0.7 }}
+          />
+          <View className="absolute bottom-0 left-0 right-0 bg-black/50 p-4">
+            <Text className="text-white font-bold text-2xl">{workoutInfo.title}</Text>
+            <Text className="text-white text-sm mt-1">{workoutInfo.description}</Text>
+          </View>
         </View>
-        <View className="mb-32">
-          <Text className="text-white font-semibold text-3xl my-4">Exercises</Text>
-          {chestExercises.map((exercise) => (
-            <View key={exercise.id} className="flex flex-row items-start gap-3 bg-[#3a3a3a] p-4 rounded-3xl mb-3">
-              <Image source={exercise.image} className="w-28 h-20" />
-              <View className="flex gap-2">
-                <Text className="text-white font-semibold text-2xl capitalize">{exercise.name}</Text>
-                <Text className="font-extralight text-slate-200">{exercise.reps}</Text>
+
+        {/* Workout Details */}
+        <View className="px-6">
+          <View className="bg-gray-100 dark:bg-[#2a2a2a] rounded-xl p-5 mb-6">
+            <Text className="text-black dark:text-white font-medium text-lg mb-4">Workout Details</Text>
+
+            <View className="flex-row justify-between mb-2">
+              <View className="items-center flex-1">
+                <MaterialIcons name="fitness-center" size={24} color="#10B981" />
+                <Text className="text-gray-400 font-bold text-lg mt-1">{exerciseList.length}</Text>
+                <Text className="text-black dark:text-white text-xs">Exercises</Text>
+              </View>
+
+              <View className="items-center flex-1">
+                <MaterialIcons name="timer" size={24} color="red" />
+                <Text className="text-gray-400 font-bold text-lg mt-1">{workoutInfo.duration}</Text>
+                <Text className="text-black dark:text-white text-xs">Duration</Text>
+              </View>
+
+              <View className="items-center flex-1">
+                <MaterialIcons name="local-fire-department" size={24} color="orange" />
+                <Text className="text-gray-400 font-bold text-lg mt-1">{workoutInfo.calories}</Text>
+                <Text className="text-black dark:text-white text-xs">Calories</Text>
               </View>
             </View>
-          ))}
+
+            <View className="mt-4 pt-4 border-t border-gray-200 dark:border-[#3a3a3a]">
+              <View className="flex-row items-center">
+                <Text className="text-black dark:text-white">Difficulty:</Text>
+                <Text className="text-gray-400 ml-2">{workoutInfo.difficulty}</Text>
+              </View>
+            </View>
+          </View>
+
+          {/* What to Expect */}
+          <View className="bg-gray-100 dark:bg-[#2a2a2a] rounded-xl p-5 mb-6">
+            <Text className="text-black dark:text-white font-medium text-lg mb-3">What to Expect</Text>
+            {exerciseList.map((exercise, index) => (
+              <Text key={index} className="text-black dark:text-white text-sm leading-5 mb-2">
+                • {exercise.name}
+              </Text>
+            ))}
+            <Text className="text-black dark:text-white text-sm leading-5 mb-2">• 20-second rest periods between exercises</Text>
+            <Text className="text-black dark:text-white text-sm leading-5">• Modifications available for all fitness levels</Text>
+          </View>
+
+          {/* Tips */}
+          <View className="bg-gray-100 dark:bg-[#2a2a2a] rounded-xl p-5 mb-6">
+            <Text className="text-black dark:text-white font-medium text-lg mb-3">Tips</Text>
+            <View className="flex-row items-start mb-2">
+              <Ionicons name="water-outline" size={18} color="blue" />
+              <Text className="text-black dark:text-white text-sm leading-5 ml-2 flex-1">Stay hydrated throughout your workout</Text>
+            </View>
+            <View className="flex-row items-start mb-2">
+              <Ionicons name="body-outline" size={18} color="gold" />
+              <Text className="text-black dark:text-white text-sm leading-5 ml-2 flex-1">Focus on proper form rather than speed</Text>
+            </View>
+            <View className="flex-row items-start">
+              <Ionicons name="heart-outline" size={18} color="pink" />
+              <Text className="text-black dark:text-white text-sm leading-5 ml-2 flex-1">Listen to your body and take breaks if needed</Text>
+            </View>
+          </View>
         </View>
       </ScrollView>
 
-      {/* Start Button - Navigates to Workout with index 0 */}
-      <Pressable
-        onPress={() =>
-          navigation.navigate("(workout)/Workout", {
-            exerciseIndex: 0,
-            exercises: chestExercises,
-          })
-        }
-        className="absolute bottom-10 left-[50px] right-[50px] items-center"
-      >
-        <CustomButton
-          title="Start"
-          className="p-4 bg-[#ceff00] border-2 border-[#fff] text-[#232323] font-extrabold rounded-full px-32"
-        />
-      </Pressable>
+      {/* Start Button */}
+      <View className="p-6 border-t border-gray-200 dark:border-[#3a3a3a]">
+        <TouchableOpacity
+          className="bg-[#10B981] py-4 rounded-xl flex-row justify-center items-center"
+          onPress={() =>
+            router.replace({
+              pathname: '(workout)/Workout',
+              params: { exerciseIndex: 0 },
+            })
+          }
+        >
+          <Text className="text-[#fff] font-bold text-lg mr-2">START WORKOUT</Text>
+          <MaterialIcons name="fitness-center" size={24} color="#fff" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
-}
+};
 
-export default Exercises;
+export default Exercise;

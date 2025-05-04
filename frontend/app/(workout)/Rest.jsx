@@ -1,142 +1,133 @@
-// Rest.jsx
-import React, { useState, useEffect, useCallback } from "react";
-import { Text, View, Image, Pressable } from "react-native";
-import CustomButton from "../components/Button";
-import { LinearGradient } from "expo-linear-gradient";
-import {
-  useNavigation,
-  useRoute,
-  useFocusEffect,
-} from "@react-navigation/native";
-import { MotiText } from "moti";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import React, { useEffect, useState, useRef } from 'react';
+import { View, Text, TouchableOpacity, Image, SafeAreaView, useColorScheme } from 'react-native';
+import { useLocalSearchParams, router } from 'expo-router';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import image from '../constants/image';
 
-function Rest() {
-  const navigation = useNavigation();
-  const route = useRoute();
+const exercises = [
+  { name: 'Push-ups', image: image.arm },
+  { name: 'Bicep Curljbjbjs', image: image.arm },
+  { name: 'Chin-uhgbhhps', image: image.arm },
+  { name: 'Squatjhjhjhs', image: image.arm },
+  { name: 'Lunges', image: image.arm },
+];
 
-  // Get nextIndex and the full exercise list from params
-  const { nextIndex, exercises } = route.params;
-  const nextExercise = exercises[nextIndex];
+const Rest = () => {
+  const { exerciseIndex } = useLocalSearchParams();
+  const index = Number(exerciseIndex);
+  const [seconds, setSeconds] = useState(20);
+  const timerRef = useRef(null);
+  const colorScheme = useColorScheme();
+  const nextIndex = index + 1;
+  const isLastExercise = nextIndex >= exercises.length;
+  const nextExercise = isLastExercise ? null : exercises[nextIndex];
 
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(30); // Rest timer starts at 0:30
-  const [isActive, setIsActive] = useState(false);
-
-  // Start timer when the screen is focused
-  useFocusEffect(
-    useCallback(() => {
-      setIsActive(true);
-      return () => setIsActive(false);
-    }, [])
-  );
-
-  useEffect(() => {
-    if (!isActive) return;
-    if (minutes === 0 && seconds === 0) {
-      // Timer finished: navigate to next workout
-      navigation.navigate("(workout)/Workout", {
-        exerciseIndex: nextIndex,
-        exercises,
-      });
-      return;
+  const goToNextExercise = () => {
+    if (nextIndex < exercises.length) {
+      router.replace({ pathname: '(workout)/Workout', params: { exerciseIndex: nextIndex } });
+    } else {
+      router.replace('(workout)/Finished');
     }
-    const timer = setInterval(() => {
-      if (seconds === 0) {
-        if (minutes > 0) {
-          setMinutes((prev) => prev - 1);
-          setSeconds(59);
-        }
-      } else {
-        setSeconds((prev) => prev - 1);
-      }
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [minutes, seconds, isActive, navigation, nextIndex, exercises]);
-
-  const addTime = () => {
-    let totalSeconds = minutes * 60 + seconds + 20;
-    setMinutes(Math.floor(totalSeconds / 60));
-    setSeconds(totalSeconds % 60);
   };
 
-  if (!nextExercise) {
-    navigation.navigate("(workout)/Finished");
-    return null;
-  }
-  
+  useEffect(() => {
+    timerRef.current = setInterval(() => {
+      setSeconds((prev) => {
+        if (prev <= 1) {
+          clearInterval(timerRef.current);
+          goToNextExercise();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timerRef.current);
+  }, []);
+
+  const add15Seconds = () => {
+    setSeconds((prev) => prev + 15);
+  };
+
+  const formatTime = (totalSeconds) => {
+    const mins = Math.floor(totalSeconds / 60);
+    const secs = totalSeconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const accentColor = '#10B981';
+  const progress = ((index + 1) / exercises.length) * 100;
 
   return (
-    <View className="bg-[#232323] h-screen">
-      <View className="overflow-hidden relative">
-        <Pressable
-          onPress={() => navigation.goBack()}
-          className="absolute top-4 left-4 bg-[#232323]/50 p-2 rounded-full z-20"
-        >
-          <Ionicons name="chevron-back" size={24} color="#ceff00" />
-        </Pressable>
-        <Image
-          source={nextExercise.image}
-          className="w-full h-96 rounded-b-2xl"
-        />
-        <LinearGradient
-          colors={["transparent", "#232323"]}
-          start={{ x: 0.5, y: 0 }}
-          end={{ x: 0.5, y: 0.8 }}
-          className="flex justify-end pb-12 space-y-8 absolute bottom-0 w-full h-1/3 rounded-b-2xl"
-        >
-          <View className="flex flex-row items-center justify-between mx-6">
-            <Text className="text-[#ceff00] text-4xl font-bold capitalize">
-              {nextExercise.name}
-            </Text>
-            <Text className="text-[#ceff00] text-5xl font-extrabold">
-              {nextExercise.reps}
-            </Text>
+    <SafeAreaView className={`flex-1 ${colorScheme === 'dark' ? 'dark bg-[#232323]' : 'bg-white'}`}>
+      <View className="px-6 pt-12 pb-4">
+        <View className="flex-row items-center justify-between">
+          <Text className="font-medium text-xl capitalize text-[#10B981]">rest time</Text>
+          <Text className="text-black dark:text-white">
+            {index + 1}/{exercises.length}
+          </Text>
+        </View>
+      </View>
+
+      <View className="px-6 mb-4">
+        <View className="h-2 rounded-full overflow-hidden bg-gray-200 dark:bg-[#3a3a3a]">
+          <View style={{ width: `${progress}%` }} className="h-full rounded-full bg-[#10B981]" />
+        </View>
+      </View>
+
+      <View className="flex-1 px-6 justify-center">
+        <View className="items-center mb-10">
+          <Text className="text-lg mb-4 text-black dark:text-white">Rest before next exercise</Text>
+          <View className="w-48 h-48 rounded-full items-center justify-center border-4 border-[#10B981] bg-gray-100 dark:bg-[#2a2a2a]">
+            <Text className="font-bold text-4xl text-[#10B981]">{formatTime(seconds)}</Text>
           </View>
-        </LinearGradient>
-      </View>
-
-      <View className="mx-6 flex flex-col items-center justify-center mt-5">
-        <Text className="text-[#ceff00] text-3xl font-semibold">Take Rest</Text>
-
-        {/* Animated Timer Display */}
-        <View className="mt-40 gap-2 justify-center flex flex-col items-center border bg-[#3a3a3a] border-[#ceff00] rounded-3xl p-5 pb-2">
-          <MotiText
-            from={{ opacity: 0, translateY: -10 }}
-            animate={{ opacity: 1, translateY: 0 }}
-            transition={{ type: "timing", duration: 500 }}
-            key={`${minutes}:${seconds}`}
-            className="text-[#ceff00] text-6xl font-light"
-          >
-            {`${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`}
-          </MotiText>
         </View>
 
-        <View className="flex flex-row items-center justify-between gap-8 mt-[128px]">
-          <Pressable onPress={addTime}>
-            <CustomButton
-              title={"+20s"}
-              className="text-[#232323] text-3xl bg-[#ceff00] px-[59px] py-4 rounded-full"
-            />
-          </Pressable>
-          <Pressable
-            onPress={() =>
-              navigation.navigate("(workout)/Workout", {
-                exerciseIndex: nextIndex,
-                exercises,
-              })
-            }
+        {!isLastExercise && nextExercise && (
+          <View className="rounded-xl overflow-hidden mb-6 bg-gray-100 dark:bg-[#2a2a2a]">
+            <Text className="font-medium p-4 bg-gray-200 dark:bg-[#3a3a3a] text-black dark:text-white">
+              Up Next
+            </Text>
+            <View className="flex-row items-center p-4">
+              <View className="w-16 h-16 rounded-lg overflow-hidden mr-4 bg-gray-200 dark:bg-[#3a3a3a]">
+                <Image source={nextExercise.image} className="w-full h-full" resizeMode="contain" />
+              </View>
+              <View className="flex-1">
+                <Text className="font-medium text-lg text-black dark:text-white">{nextExercise.name}</Text>
+                <Text className="text-sm mt-1 text-[#10B981]">Get ready!</Text>
+              </View>
+            </View>
+          </View>
+        )}
+
+        <View className="flex-row justify-between mb-6">
+          <TouchableOpacity 
+            className="py-4 px-6 rounded-xl flex-1 mr-3 flex-row items-center justify-center bg-gray-100 dark:bg-[#2a2a2a]"
+            onPress={add15Seconds}
           >
-            <CustomButton
-              title={"Skip"}
-              className="text-[#ceff00] border border-[#ceff00] px-[59px] py-4 rounded-full"
-            />
-          </Pressable>
+            <MaterialIcons name="add" size={20} color={accentColor} />
+            <Text className="font-medium ml-2 text-black dark:text-white">+15 sec</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+            className="py-4 px-6 rounded-xl flex-1 flex-row items-center justify-center bg-[#10B981]"
+            onPress={goToNextExercise}
+          >
+            <Text className="font-medium mr-2 text-white">Skip</Text>
+            <MaterialIcons name="skip-next" size={20} color={"white"} />
+          </TouchableOpacity>
         </View>
       </View>
-    </View>
+
+      <View className="p-6 border-t bg-[#10B981] border-gray-200 dark:border-[#3a3a3a]">
+        <Text className="text-center text-lg font-medium text-white">
+          {isLastExercise 
+            ? "Almost done! Get ready for the final exercise!" 
+            : "Take a deep breath and prepare for the next exercise!"}
+        </Text>
+      </View>
+    </SafeAreaView>
   );
-}
+};
 
 export default Rest;

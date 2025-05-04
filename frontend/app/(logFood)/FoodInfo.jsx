@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Pressable, Modal, ToastAndroid } from "react-native";
+import { View, Text, Pressable, Modal, ToastAndroid, ScrollView } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useNavigation } from "@react-navigation/native";
@@ -7,14 +7,10 @@ import { useRoute } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { format } from 'date-fns';
 
-
 function FoodInfo() {
   const route = useRoute();
   const {food} = route.params || {};
   const navigation = useNavigation();
-  // console.log("Food received from route:", food);
-
-  // console.log("Route params:", route.params);
 
   const [mealType, setMealType] = useState("Select");
   const [servings, setServings] = useState(1);
@@ -32,24 +28,12 @@ function FoodInfo() {
     setPopoverType(null);
   };
 
-  const renderPopover = (type, options) => (
-    <Modal transparent animationType="fade" visible={popoverType === type}>
-      <View className="flex-1 bg-black/60 justify-center items-center">
-        <View className="bg-[#232323] p-5 rounded-lg w-3/4">
-          {options.map((option, index) => (
-            <Pressable key={index} onPress={() => handleSelect(type, option)}>
-              <Text className="text-white text-center py-2">{option}</Text>
-            </Pressable>
-          ))}
-          <Pressable onPress={() => setPopoverType(null)}>
-            <Text className="text-red-500 text-center mt-2">Cancel</Text>
-          </Pressable>
-        </View>
-      </View>
-    </Modal>
-  );
-
   const handleDone = async () => {
+    if (mealType === "Select") {
+      ToastAndroid.show("Please select a meal type!", ToastAndroid.SHORT);
+      return;
+    }
+  
     if (!food) return;
   
     const newEntry = {
@@ -75,109 +59,179 @@ function FoodInfo() {
     }
   };
   
-  return (
-    <>
-      <View className="bg-[#232323] flex-1">
-        <View className="px-6 py-3">
-          <View className="flex flex-row items-center justify-between gap-3 mb-8">
-            <View className="flex-row items-center justify-evenly">
-              <Pressable onPress={() => navigation.goBack()}>
-                <Ionicons
-                  name="chevron-back"
-                  size={26}
-                  color="#ceff00"
-                  className="bg-black/50 p-1.5 rounded-full"
-                />
-              </Pressable>
-            </View>
-            <Text className="text-[#ceff00] font-medium text-xl flex-1 capitalize">
-              add food
-            </Text>
-            <Pressable onPress={handleDone}>
-              <MaterialIcons name="done" size={28} color="#ceff00" />
+
+  // Calculate total calories based on servings
+  const totalCalories = food?.calories ? parseInt(food.calories) * servings : 0;
+  
+  const renderPopover = (type, options) => (
+    <Modal transparent animationType="fade" visible={popoverType === type}>
+      <View className="flex-1 bg-black/60 justify-center items-center">
+        <View className="bg-[#232323] p-5 rounded-lg w-3/4">
+          <Text className="text-[#10B981] font-medium text-lg mb-4 text-center capitalize">
+            Select {type}
+          </Text>
+          {options.map((option, index) => (
+            <Pressable 
+              key={index} 
+              onPress={() => handleSelect(type, option)}
+              className="py-3 border-b border-[#3a3a3a]"
+            >
+              <Text className="text-white text-center">{option}</Text>
             </Pressable>
-          </View>
-
-          <View>
-            <View>
-              <View className="flex flex-row justify-between items-center border-b py-3 border-[#3a3a3a]">
-                <Text className="text-white font-medium text-4xl capitalize">
-                  {food.name || "Unknown Food"}
-                </Text>
-              </View>
-              <View className="flex flex-row justify-between items-center border-b py-3 border-[#3a3a3a]">
-                <Text className="text-white font-medium text-xl capitalize">
-                  meal
-                </Text>
-                <Pressable onPress={() => setPopoverType("meal")}>
-                  <Text className="font-extralight text-xl text-[#ceff00]">
-                    {mealType}
-                  </Text>
-                </Pressable>
-              </View>
-              <View className="flex flex-row justify-between items-center border-b py-3 border-[#3a3a3a]">
-                <Text className="text-white font-medium text-xl capitalize">
-                  no of servings
-                </Text>
-                <Pressable onPress={() => setPopoverType("servings")}>
-                  <Text className="text-[#ceff00] font-extralight text-xl">
-                    {servings}
-                  </Text>
-                </Pressable>
-              </View>
-              <View className="flex flex-row justify-between items-center border-b py-3 border-[#3a3a3a]">
-                <Text className="text-white font-medium text-xl capitalize">
-                  size
-                </Text>
-                <Pressable onPress={() => setPopoverType("size")}>
-                  <Text className="text-[#ceff00] font-extralight text-xl">
-                    {size}
-                  </Text>
-                </Pressable>
-              </View>
-            </View>
-
-            <View className="flex flex-row justify-evenly py-2 border-b border-[#3a3a3a]">
-              <View className="flex flex-col items-center">
-                <Text className="text-white font-medium text-xl">{food.calories || '?'}<Text className='font-extralight text-lg'>g</Text></Text>
-                <Text className="text-[#ceff00] font-extralight text-sm">
-                  cal
-                </Text>
-              </View>
-
-              <View className="flex flex-col items-center">
-                <Text className="text-white font-medium text-xl">{food.carbs || '?'}<Text className='font-extralight text-lg'>g</Text></Text>
-                <Text className="text-[#ceff00] font-extralight text-sm">
-                  carbs
-                </Text>
-              </View>
-              <View className="flex flex-col items-center">
-                <Text className="text-white font-medium text-xl">{food.protein || '?'}<Text className='font-extralight text-lg'>g</Text></Text>
-                <Text className="text-[#ceff00] font-extralight text-sm">
-                  Protein
-                </Text>
-              </View>
-              <View className="flex flex-col items-center">
-                <Text className="text-white font-medium text-xl">{food.fat || '?'}<Text className='font-extralight text-lg'>g</Text></Text>
-                <Text className="text-[#ceff00] font-extralight text-sm">
-                  fat
-                </Text>
-              </View>
-            </View>
-          </View>
-
-          <Pressable>
-            <View className="flex flex-col items-center mt-6">
-              <Text className="text-red-500">Report Food</Text>
-            </View>
+          ))}
+          <Pressable 
+            onPress={() => setPopoverType(null)}
+            className="mt-4"
+          >
+            <Text className="text-red-500 text-center">Cancel</Text>
           </Pressable>
         </View>
+      </View>
+    </Modal>
+  );
+  
+  return (
+    <View className="bg-[#232323] flex-1">
+      <View className="px-6 py-3">
+        {/* Header */}
+        <View className="flex flex-row items-center justify-between gap-3 mb-4">
+          <View className="flex-row items-center justify-evenly">
+            <Pressable onPress={() => navigation.goBack()}>
+              <Ionicons
+                name="chevron-back"
+                size={26}
+                color="#10B981"
+                className="bg-black/50 p-1.5 rounded-full"
+              />
+            </Pressable>
+          </View>
+          <Text className="text-[#10B981] font-medium text-xl flex-1 capitalize">
+            add food
+          </Text>
+          <Pressable 
+            onPress={handleDone}
+            className="bg-[#10B981] px-4 py-1 rounded-full"
+          >
+<MaterialIcons name="done" size={24} color="black" />
+          </Pressable>
+        </View>
+
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {/* Food Name Card */}
+          <View className="bg-[#2a2a2a] rounded-xl p-4 mb-4">
+            <Text className="text-white text-sm mb-1">Food Name</Text>
+            <Text className="text-white font-medium text-2xl capitalize">
+              {food?.name || "Unknown Food"}
+            </Text>
+          </View>
+
+          {/* Food Options Card */}
+          <View className="bg-[#2a2a2a] rounded-xl p-4 mb-4">
+            <Text className="text-white font-medium text-lg mb-3">Options</Text>
+            
+            <View className="flex-row justify-between items-center py-3 border-b border-[#3a3a3a]">
+              <Text className="text-white text-base capitalize">Meal</Text>
+              <Pressable 
+                onPress={() => setPopoverType("meal")}
+                className="flex-row items-center"
+              >
+                <Text className="text-[#10B981] text-base mr-2">{mealType}</Text>
+                <Ionicons name="chevron-down" size={16} color="#10B981" />
+              </Pressable>
+            </View>
+            
+            <View className="flex-row justify-between items-center py-3 border-b border-[#3a3a3a]">
+              <Text className="text-white text-base capitalize">Servings</Text>
+              <Pressable 
+                onPress={() => setPopoverType("servings")}
+                className="flex-row items-center"
+              >
+                <Text className="text-[#10B981] text-base mr-2">{servings}</Text>
+                <Ionicons name="chevron-down" size={16} color="#10B981" />
+              </Pressable>
+            </View>
+            
+            <View className="flex-row justify-between items-center py-3">
+              <Text className="text-white text-base capitalize">Serving Size</Text>
+              <Pressable 
+                onPress={() => setPopoverType("size")}
+                className="flex-row items-center"
+              >
+                <Text className="text-[#10B981] text-base mr-2">{size}</Text>
+                <Ionicons name="chevron-down" size={16} color="#10B981" />
+              </Pressable>
+            </View>
+          </View>
+
+          {/* Nutrition Card */}
+          <View className="bg-[#2a2a2a] rounded-xl p-4 mb-4">
+            <View className="flex-row justify-between items-center mb-3">
+              <Text className="text-white font-medium text-lg">Nutrition</Text>
+              <Text className="text-white text-sm">
+                Per {servings} {servings > 1 ? 'servings' : 'serving'}
+              </Text>
+            </View>
+            
+            <View className="flex-row justify-between items-center py-3 border-b border-[#3a3a3a]">
+              <Text className="text-white text-base">Calories</Text>
+              <Text className="text-[#10B981] font-medium text-base">{totalCalories}</Text>
+            </View>
+            
+            <View className="flex-row justify-between py-4">
+              <View className="items-center">
+                <Text className="text-white font-medium text-xl">{food?.carbs || '?'}<Text className="font-extralight text-lg">g</Text></Text>
+                <Text className="text-[#10B981] font-extralight text-sm">carbs</Text>
+              </View>
+              
+              <View className="items-center">
+                <Text className="text-white font-medium text-xl">{food?.protein || '?'}<Text className="font-extralight text-lg">g</Text></Text>
+                <Text className="text-[#10B981] font-extralight text-sm">protein</Text>
+              </View>
+              
+              <View className="items-center">
+                <Text className="text-white font-medium text-xl">{food?.fat || '?'}<Text className="font-extralight text-lg">g</Text></Text>
+                <Text className="text-[#10B981] font-extralight text-sm">fat</Text>
+              </View>
+            </View>
+          </View>
+
+          {/* Calorie Impact Card */}
+          <View className="bg-[#2a2a2a] rounded-xl p-4 mb-6">
+            <Text className="text-white font-medium text-lg mb-2">Daily Impact</Text>
+            <View className="flex-row justify-between items-center">
+              <View>
+                <Text className="text-[#10B981] text-3xl font-bold">{totalCalories}</Text>
+                <Text className="text-white text-sm">calories to add</Text>
+              </View>
+              <View className="items-end">
+                <Text className="text-white text-sm">Daily Goal</Text>
+                <Text className="text-white text-xl font-medium">2000</Text>
+              </View>
+            </View>
+            
+            {/* Progress bar simulation */}
+            <View className="mt-4 bg-[#3a3a3a] h-2 rounded-full overflow-hidden">
+              <View 
+                className="bg-[#10B981] h-full rounded-full" 
+                style={{ width: `${Math.min(100, (totalCalories / 2000) * 100)}%` }} 
+              />
+            </View>
+            <Text className="text-white text-xs text-right mt-2">
+              {totalCalories} of 2000 calories
+            </Text>
+          </View>
+
+          {/* Report Button */}
+          <Pressable className="items-center mb-10">
+            <Text className="text-red-500">Report Food</Text>
+          </Pressable>
+        </ScrollView>
       </View>
 
       {renderPopover("meal", mealOptions)}
       {renderPopover("servings", servingOptions)}
       {renderPopover("size", sizeOptions)}
-    </>
+    </View>
   );
 }
 
